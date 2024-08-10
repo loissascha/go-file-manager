@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 
 	"github.com/oklog/ulid/v2"
 )
@@ -51,4 +53,23 @@ func (a *App) OpenFile(name string) error {
 	}
 
 	return cmd.Start()
+}
+
+func (a *App) GetFilePreview(name string) string {
+
+	if strings.Contains(name, ".txt") {
+	} else if strings.Contains(name, ".sh") {
+	} else if strings.Contains(name, ".html") {
+	} else {
+		return ""
+	}
+
+	filePath := activeTab.Location + "/" + name
+
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	return string(content)
 }
