@@ -1,17 +1,9 @@
 
 function WindowBar() {
 
-    const handleMouseDown = (e: any) => {
-        console.log("Mouse Down");
-        if (e.button === 0) {
-            console.log("Mouse Down Left");
-        }
-    };
-
     return (
         <div
-            onMouseDown={handleMouseDown}
-            id="windowbar" className='bg-orange-400'>
+            id="windowbar" className='bg-orange-400 dragable h-0'>
             TopBar
         </div>
     );
