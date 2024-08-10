@@ -42,7 +42,7 @@ function App() {
     }
 
     return (
-        <div className='w-full h-full bg-mocha-base text-mocha-text grid grid-rows-[auto_1fr]'>
+        <div className='w-full h-full bg-mocha-base text-mocha-text grid grid-rows-[auto_1fr] select-none'>
             <WindowBar />
             <div className='grid grid-cols-[1fr_4fr]'>
                 <SideBar navigateToHomeFolderDir={navigateToHomeFolderDir} />

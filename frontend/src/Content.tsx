@@ -40,7 +40,7 @@ function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
         <div className="">
             <ul>
                 {files.map((file, index) => {
-                    return <li key={index} className={'py-1 px-3 border-b last:border-b-0 border-gray-800 cursor-pointer ' + (file.selected ? 'bg-mocha-mantle' : '')} onClick={() => {
+                    return <li key={index} className={'py-1 px-3 select-none border-b last:border-b-0 border-gray-800 cursor-pointer ' + (file.selected ? 'bg-mocha-mantle' : '')} onClick={() => {
                         const newFiles = files.map((f, i) => ({
                             ...f,
                             selected: i === index
