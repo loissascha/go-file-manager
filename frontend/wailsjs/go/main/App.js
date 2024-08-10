@@ -6,6 +6,10 @@ export function GetFileList() {
   return window['go']['main']['App']['GetFileList']();
 }
 
+export function GetFilePreview(arg1) {
+  return window['go']['main']['App']['GetFilePreview'](arg1);
+}
+
 export function GetHomeFolderFileList() {
   return window['go']['main']['App']['GetHomeFolderFileList']();
 }

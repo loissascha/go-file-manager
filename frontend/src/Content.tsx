@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GetFileList, OpenFile } from "../wailsjs/go/main/App";
+import { GetFileList, GetFilePreview, OpenFile } from "../wailsjs/go/main/App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
 import { faFile } from "@fortawesome/free-regular-svg-icons";
@@ -18,6 +18,7 @@ interface ContentEntry {
 
 function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
     const [files, setFiles] = useState<ContentEntry[]>([]);
+    const [preview, setPreview] = useState<string>('');
 
     useEffect(() => {
         GetFileList().then((files) => {
@@ -36,9 +37,25 @@ function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
         });
     }, [location, tabId]);
 
+    useEffect(() => {
+        let hasPreview = false;
+        for (const f of files) {
+            if (f.selected) {
+                GetFilePreview(f.Name).then((preview) => {
+                    setPreview(preview);
+                });
+                hasPreview = true;
+                break;
+            }
+        }
+        if (!hasPreview) {
+            setPreview('');
+        }
+    }, [files]);
+
     return (
-        <div className="">
-            <ul>
+        <div className="grid grid-cols-[2fr_1fr] h-full">
+            <ul className="overflow-auto">
                 {files.map((file, index) => {
                     return <li key={index} className={'py-1 px-3 select-none border-b last:border-b-0 border-gray-800 cursor-pointer ' + (file.selected ? 'bg-mocha-mantle' : '')} onClick={() => {
                         const newFiles = files.map((f, i) => ({
@@ -65,6 +82,9 @@ function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
                     </li>
                 })}
             </ul>
+            <div className="bg-black text-white overflow-x-auto overflow-y-auto">
+                {preview}
+            </div>
         </div >
     );
 }

@@ -4,6 +4,8 @@ import {main} from '../models';
 
 export function GetFileList():Promise<Array<main.FileResult>>;
 
+export function GetFilePreview(arg1:string):Promise<string>;
+
 export function GetHomeFolderFileList():Promise<Array<string>>;
 
 export function GetTabId():Promise<string>;
