@@ -8,7 +8,7 @@ function TopBar({ location, tabId }: TopBarProps) {
 
 
     return (
-        <nav className="bg-gray-800">
+        <nav className="bg-mocha-mantle">
             <div>
                 <i className="text-gray-400 ms-5">{tabId}</i>
             </div>
