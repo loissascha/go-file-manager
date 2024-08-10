@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { GetFileList } from "../wailsjs/go/main/App";
 
-function Content() {
+interface ContentProps {
+    location: string;
+    tabId: string;
+}
+
+function Content({ location, tabId }: ContentProps) {
     const [files, setFiles] = useState<string[]>([]);
 
     useEffect(() => {
@@ -13,7 +18,7 @@ function Content() {
                 }
             }
         });
-    }, []);
+    }, [location, tabId]);
 
     return (
         <div className="p-3">

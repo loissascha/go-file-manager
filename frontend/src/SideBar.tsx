@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { GetHomeFolderFileList } from "../wailsjs/go/main/App";
 
+interface SideBarProps {
+    navigateToHomeFolderDir: (dir: string) => void;
+}
 
-function SideBar() {
+function SideBar({ navigateToHomeFolderDir }: SideBarProps) {
     const [fixedFolders, setFixedFolders] = useState<string[]>([]);
 
     useEffect(() => {
         GetHomeFolderFileList().then((files) => {
             console.log(files);
-            setFixedFolders(["Home"]);
+            setFixedFolders([]);
             for (const file of files) {
                 if (file === "Pictures" || file === "Documents" || file === "Downloads" || file === "Music" || file === "Videos") {
                     setFixedFolders(prev => [...prev, file]);
@@ -20,8 +23,13 @@ function SideBar() {
     return (
         <aside className="bg-gray-700 p-3">
             <ul>
+                <li onClick={() => {
+                    navigateToHomeFolderDir("");
+                }}>Home</li>
                 {fixedFolders.map((folder, index) => {
-                    return <li key={index}>{folder}</li>
+                    return <li key={index} onClick={() => {
+                        navigateToHomeFolderDir(folder);
+                    }}>{folder}</li>
                 })}
             </ul>
         </aside>

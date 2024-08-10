@@ -11,4 +11,8 @@ export function GetTabLocation():Promise<string>;
 
 export function Greet(arg1:string):Promise<string>;
 
+export function NavigateToHomeFolderSubFolder(arg1:string):Promise<void>;
+
+export function NavigateToSubFolder(arg1:string):Promise<void>;
+
 export function Version():Promise<string>;

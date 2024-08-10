@@ -22,6 +22,14 @@ export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
+export function NavigateToHomeFolderSubFolder(arg1) {
+  return window['go']['main']['App']['NavigateToHomeFolderSubFolder'](arg1);
+}
+
+export function NavigateToSubFolder(arg1) {
+  return window['go']['main']['App']['NavigateToSubFolder'](arg1);
+}
+
 export function Version() {
   return window['go']['main']['App']['Version']();
 }
