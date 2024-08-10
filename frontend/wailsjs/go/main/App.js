@@ -30,6 +30,10 @@ export function NavigateToSubFolder(arg1) {
   return window['go']['main']['App']['NavigateToSubFolder'](arg1);
 }
 
+export function OpenFile(arg1) {
+  return window['go']['main']['App']['OpenFile'](arg1);
+}
+
 export function Version() {
   return window['go']['main']['App']['Version']();
 }

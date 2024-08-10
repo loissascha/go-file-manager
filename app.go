@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
+	"os/exec"
+	"runtime"
 
 	"github.com/oklog/ulid/v2"
 )
@@ -38,57 +39,16 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's time to build something incredible!", name)
 }
 
-func (a *App) GetFileList() []FileResult {
-	content, err := os.ReadDir(activeTab.Location)
-	if err != nil {
-		fmt.Println(err)
-		return []FileResult{}
-	}
-	flist := []FileResult{}
-	for _, f := range content {
-		var fr FileResult
-		fr.Name = f.Name()
-		fr.IsDir = f.IsDir()
-		flist = append(flist, fr)
-	}
-	return flist
-}
+func (a *App) OpenFile(name string) error {
+	var cmd *exec.Cmd
+	filePath := activeTab.Location + "/" + name
 
-type FileResult struct {
-	Name  string
-	IsDir bool
-}
-
-func (a *App) GetHomeFolderFileList() []string {
-	content, err := os.ReadDir(GetUserFolder())
-	if err != nil {
-		fmt.Println(err)
-		return []string{}
+	switch runtime.GOOS {
+	case "linux":
+		cmd = exec.Command("xdg-open", filePath)
+	default:
+		return fmt.Errorf("unsupported platform")
 	}
-	flist := []string{}
-	for _, f := range content {
-		flist = append(flist, f.Name())
-	}
-	return flist
-}
 
-func GetUserFolder() string {
-	dir, err := os.UserHomeDir()
-	if err != nil {
-		fmt.Println(err)
-		return ""
-	}
-	return dir
-}
-
-func (a *App) NavigateToSubFolder(f string) {
-	activeTab.Location += "/" + f
-}
-
-func (a *App) NavigateToHomeFolderSubFolder(f string) {
-	if f == "" {
-		activeTab.Location = GetUserFolder()
-		return
-	}
-	activeTab.Location = GetUserFolder() + "/" + f
+	return cmd.Start()
 }

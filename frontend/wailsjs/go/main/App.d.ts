@@ -16,4 +16,6 @@ export function NavigateToHomeFolderSubFolder(arg1:string):Promise<void>;
 
 export function NavigateToSubFolder(arg1:string):Promise<void>;
 
+export function OpenFile(arg1:string):Promise<void>;
+
 export function Version():Promise<string>;
