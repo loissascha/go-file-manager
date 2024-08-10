@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/oklog/ulid/v2"
 )
 
@@ -25,7 +27,7 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	tab := Tab{
 		Id:       ulid.Make(),
-		Location: "~",
+		Location: "/home/sascha",
 	}
 	tabs = append(tabs, tab)
 	activeTab = &tabs[0]
@@ -34,4 +36,17 @@ func (a *App) startup(ctx context.Context) {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's time to build something incredible!", name)
+}
+
+func (a *App) GetFileList() []string {
+	content, err := os.ReadDir(activeTab.Location)
+	if err != nil {
+		fmt.Println(err)
+		return []string{}
+	}
+	flist := []string{}
+	for _, f := range content {
+		flist = append(flist, f.Name())
+	}
+	return flist
 }
