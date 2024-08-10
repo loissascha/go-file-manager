@@ -51,6 +51,19 @@ func (a *App) GetFileList() []string {
 	return flist
 }
 
+func (a *App) GetHomeFolderFileList() []string {
+	content, err := os.ReadDir(GetUserFolder())
+	if err != nil {
+		fmt.Println(err)
+		return []string{}
+	}
+	flist := []string{}
+	for _, f := range content {
+		flist = append(flist, f.Name())
+	}
+	return flist
+}
+
 func GetUserFolder() string {
 	dir, err := os.UserHomeDir()
 	if err != nil {
