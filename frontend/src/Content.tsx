@@ -4,17 +4,28 @@ import { GetFileList } from "../wailsjs/go/main/App";
 interface ContentProps {
     location: string;
     tabId: string;
+    navigateToSubFolderDir: (dir: string) => void;
 }
 
-function Content({ location, tabId }: ContentProps) {
-    const [files, setFiles] = useState<string[]>([]);
+interface ContentEntry {
+    Name: string;
+    IsDir: boolean;
+}
+
+function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
+    const [files, setFiles] = useState<ContentEntry[]>([]);
 
     useEffect(() => {
         GetFileList().then((files) => {
             setFiles([]);
             for (const file of files) {
-                if (!file.startsWith(".")) {
-                    setFiles(prev => [...prev, file]);
+                const f: any = file;
+                const contentEntry: ContentEntry = {
+                    Name: f.Name,
+                    IsDir: f.IsDir
+                };
+                if (!f.Name.startsWith(".")) {
+                    setFiles(prev => [...prev, contentEntry]);
                 }
             }
         });
@@ -24,7 +35,11 @@ function Content({ location, tabId }: ContentProps) {
         <div className="p-3">
             <ul>
                 {files.map((file, index) => {
-                    return <li key={index}>{file}</li>
+                    return <li key={index} onClick={() => {
+                        if (file.IsDir) {
+                            navigateToSubFolderDir(file.Name);
+                        }
+                    }}>{file.Name}</li>
                 })}
             </ul>
         </div>

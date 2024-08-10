@@ -38,17 +38,25 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's time to build something incredible!", name)
 }
 
-func (a *App) GetFileList() []string {
+func (a *App) GetFileList() []FileResult {
 	content, err := os.ReadDir(activeTab.Location)
 	if err != nil {
 		fmt.Println(err)
-		return []string{}
+		return []FileResult{}
 	}
-	flist := []string{}
+	flist := []FileResult{}
 	for _, f := range content {
-		flist = append(flist, f.Name())
+		var fr FileResult
+		fr.Name = f.Name()
+		fr.IsDir = f.IsDir()
+		flist = append(flist, fr)
 	}
 	return flist
+}
+
+type FileResult struct {
+	Name  string
+	IsDir bool
 }
 
 func (a *App) GetHomeFolderFileList() []string {
