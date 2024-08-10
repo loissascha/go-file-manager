@@ -32,14 +32,16 @@ function Content({ location, tabId, navigateToSubFolderDir }: ContentProps) {
     }, [location, tabId]);
 
     return (
-        <div className="p-3">
+        <div className="">
             <ul>
                 {files.map((file, index) => {
-                    return <li key={index} onClick={() => {
+                    return <li key={index} className='py-1 px-3 border-b last:border-b-0 border-gray-800' onClick={() => {
                         if (file.IsDir) {
                             navigateToSubFolderDir(file.Name);
                         }
-                    }}>{file.Name}</li>
+                    }}>
+                        {file.Name}
+                    </li>
                 })}
             </ul>
         </div>
