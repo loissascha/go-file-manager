@@ -6,9 +6,9 @@ function SideBar() {
     const [fixedFolders, setFixedFolders] = useState<string[]>([]);
 
     useEffect(() => {
-        setFixedFolders(["Home"]);
         GetFileList().then((files) => {
             console.log(files);
+            setFixedFolders(["Home"]);
             for (const file of files) {
                 if (file === "Pictures" || file === "Documents" || file === "Downloads" || file === "Music" || file === "Videos") {
                     setFixedFolders(prev => [...prev, file]);
