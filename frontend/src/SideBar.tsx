@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { GetFileList } from "../wailsjs/go/main/App";
+import { GetHomeFolderFileList } from "../wailsjs/go/main/App";
 
 
 function SideBar() {
     const [fixedFolders, setFixedFolders] = useState<string[]>([]);
 
     useEffect(() => {
-        GetFileList().then((files) => {
+        GetHomeFolderFileList().then((files) => {
             console.log(files);
             setFixedFolders(["Home"]);
             for (const file of files) {

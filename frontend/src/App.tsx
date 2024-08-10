@@ -5,7 +5,6 @@ import SideBar from './SideBar';
 import Content from './Content';
 
 function App() {
-    const [page, setPage] = useState('page1');
     const [tabId, setTabId] = useState('');
     const [tabLocation, setTabLocation] = useState('');
 
@@ -26,11 +25,9 @@ function App() {
     return (
         <div className='w-full h-full bg-gray-900 text-white grid grid-cols-[1fr_4fr]'>
             <SideBar />
-            <div className='grid grid-rows-[auto_1fr]'>
-                <TopBar location={tabLocation} tabId={tabId} onPageSwap={(page) => {
-                    setPage(page);
-                }} />
-                <div className=''>
+            <div className='grid grid-rows-[auto_1fr] h-screen'>
+                <TopBar location={tabLocation} tabId={tabId} />
+                <div className='overflow-auto'>
                     <Content />
                 </div>
             </div>
