@@ -27,7 +27,7 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 	tab := Tab{
 		Id:       ulid.Make(),
-		Location: "/home/sascha",
+		Location: GetUserFolder(),
 	}
 	tabs = append(tabs, tab)
 	activeTab = &tabs[0]
@@ -49,4 +49,13 @@ func (a *App) GetFileList() []string {
 		flist = append(flist, f.Name())
 	}
 	return flist
+}
+
+func GetUserFolder() string {
+	dir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	return dir
 }
