@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetTabId, GetTabLocation, Version } from "../wailsjs/go/main/App";
 import TopBar from './TopBar';
 import SideBar from './SideBar';
+import Content from './Content';
 
 function App() {
     const [page, setPage] = useState('page1');
@@ -30,7 +31,7 @@ function App() {
                     setPage(page);
                 }} />
                 <div className=''>
-                    {page}
+                    <Content />
                 </div>
             </div>
         </div>
