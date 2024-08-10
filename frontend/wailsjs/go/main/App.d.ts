@@ -3,6 +3,8 @@
 
 export function GetFileList():Promise<Array<string>>;
 
+export function GetHomeFolderFileList():Promise<Array<string>>;
+
 export function GetTabId():Promise<string>;
 
 export function GetTabLocation():Promise<string>;

@@ -6,6 +6,10 @@ export function GetFileList() {
   return window['go']['main']['App']['GetFileList']();
 }
 
+export function GetHomeFolderFileList() {
+  return window['go']['main']['App']['GetHomeFolderFileList']();
+}
+
 export function GetTabId() {
   return window['go']['main']['App']['GetTabId']();
 }
